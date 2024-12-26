@@ -10,7 +10,7 @@
 > “Learning to drive a car takes effort. Is that a reason to keep driving your bicycle? No, you realize you need to invest time to learn a skill. Text editing isn’t different. You need to learn new commands and turn them into a habit.”
 
 * *Detour*: three important learning principles: 
-  1. Pareto Principle, 80/20 principle
+  1. Pareto Principle, also called 80/20 principle
   2. Mini Habits
      * mini habits help you stay consistent, and reduce friction
      * keep small achievable goals, eg. 1 typing test a day. 
@@ -20,7 +20,7 @@
 ## Vim Philosophy
 * The two main ideas of Vim that make them different are, **modal editing** and **operators**
 * **Modal Editing**
-  * One spends majority of the time editing and review code here and there rather than typing.
+  * One spends majority of the time editing and review code rather than typing.
   * Hence Vim heavily optimizes navigation. Eg, In command mode, pressing `gg`, takes you to top of file.    
 * **Operators**
   * They are used to delete, change or insert text, copy or format it. 
@@ -44,10 +44,10 @@
 ## First Vim Session
 * To rum Vim, open terminal and type, `vi` or `vim`. 
 * You will start in Normal mode. 
-* To fill it with content, switch to insert mode, press `i`.
+* To fill in content, switch to insert mode, press `i`.
 * To get back to Nomral mode, press `Esc`.
 * To type a command in Normal mode, you need to use `:`.
-* For eg, save and exit Vim is, `:wq <filename>` (since you started as vim, you need to give filename) - `w` mean write and `q` means quit. To quit without saving use `:q!`
+* For eg, save and exit Vim is, `:wq <filename>` (since you started as vim, you need to give filename) - `w` means write and `q` means quit. To quit without saving use `:q!`
   
 # Vim Concepts
 ## Modes
@@ -247,7 +247,7 @@ e: <filename_1>
 * In search press `n` for forward search, `N` for backward search.
 * To make first match, go to top of file `gg`, then match `n`. 
 * To make last match, go to bottom of file `G`, them match `N`. 
-* Search backward by typeing `?`, a pattern, then `Enter`. Here `n` (backward) and `N` (downward). 
+* Search backward by typing `?`, a pattern, then `Enter`. Here `n` (backward) and `N` (downward). 
 * To quit search press `Esc`. 
 
 ### Search for current word
@@ -297,5 +297,176 @@ e: <filename_1>
   * `R` - rename the file under cursor.
   * `X` - execute the file under cursor.
   * `%` - opens a new file in the current directory, Vim will ask you for a name and open a buffer.
-  * **what about the above operations for a directory?**
-  * **skipping the section `Editing files via SSH`**
+* **what about the above operations for a directory?**
+* **skipping the section `Editing files via SSH`**
+  
+# Personalizing Vim
+* Other editors try to force you to use their features, Vim is quite opposite. 
+* Vim's initial interface is very minimal, you will have to spend time and effort to make Vim interface look pretty. 
+* The process of this manual configuration helps you understand vim better. 
+## Vim Configuration Crux
+* The main configuration file is `.vimrc`, a hidden file. 
+* There are two versions, global and personal. Changes made in personal overrides global. 
+* Personal `.vimrc` file is present in user's home directory.
+* You can also configure Vim settings for current session, but it lasts only for that session. 
+* In current session: 
+  * try `:set number`, `:set nonumber`, and `:set number!`
+  * Placing an exclamation point `!` at the end of command enables/disables boolean options.
+## Making Vim look beautiful
+* Vim supports color schemes
+  * `:colorscheme <scheme_name >` allows you to change color schemes.
+  * For eg. `:colorscheme desert` is a popular choice for its high contrast and readability. Works well in both terminal and GUI versions of Vim.
+* Cursorline
+  * In large files, tracking cursor is challenging. Hence marking cursor location is helpful. 
+  * `:set cursorline` sets cursor line
+  * `:set cursorcolumn` set cursor column
+  * adding both above lines, draws two lines in editor, and their intersection denotes the cursor position.
+  * To style the cursorline, `:highlight CursorLine guibg=lightblue ctermbg=lightgrey`
+* Spell check
+  * `:set spell`, enables spell check for English. 
+  * To set spell check for other languages, `set spelllang=de`.
+  * To set spell check for multiple languages, `set spelllang=en,de,it`.
+* To check the configuration of any vim setting place a `?` after the command. For eg. `:set colorscheme?`
+## Usability Improvements
+* Default Vim configurations are not great. 
+* If you aspire to be serious Vim user, then you should spend some time on configuring `.vimrc` file. 
+### General Configuration Options:
+| Option                         | Description                                                                                               |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `set nocompatible`             | Use Vim settings rather than Vi settings. Place this at the top of the file as it influences other options. |
+| `set backspace=indent,eol,start` | Allow backspacing over indentation, line breaks, and insertion start.                                    |
+| `set history=1000`             | Set a bigger history for executed commands.                                                              |
+| `set showcmd`                  | Show incomplete commands at the bottom.                                                                  |
+| `set showmode`                 | Show the current mode at the bottom.                                                                     |
+| `set autoread`                 | Automatically re-read files if unmodified inside Vim.                                                    |
+| `set hidden`                   | Manage multiple buffers effectively: allows switching buffers without writing to disk. Marks and undo history are preserved. |
+### User Interface Options
+| Option                    | Description                                                                                               |
+|---------------------------|-----------------------------------------------------------------------------------------------------------|
+| `set laststatus=2`        | Always display the status bar.                                                                            |
+| `set ruler`               | Always show cursor position.                                                                              |
+| `set wildmenu`            | Display command line's tab completion options as a menu.                                                 |
+| `set tabpagemax=40`       | Maximum number of tab pages that can be opened from the command line.                                     |
+| `colorscheme desert`      | Change the color scheme.                                                                                  |
+| `set cursorline`          | Highlight the line currently under the cursor.                                                           |
+| `set number`              | Show line numbers on the sidebar.                                                                        |
+| `set relativenumber`      | Show line number on the current line and relative numbers on all other lines (requires `set number`).     |
+| `set noerrorbells`        | Disable beep on errors.                                                                                   |
+| `set visualbell`          | Flash the screen instead of beeping on errors.                                                           |
+| `set mouse=a`             | Enable mouse support for scrolling and resizing.                                                         |
+| `set background=dark`     | Use colors that suit a dark background.                                                                  |
+| `set title`               | Set the window’s title to reflect the file currently being edited.                                       |
+
+### Swamp and backup file options - disable all of them
+| Option           | Description                                  |
+|------------------|----------------------------------------------|
+| `set noswapfile` | Disable swap files.                         |
+| `set nobackup`   | Disable backup files.                       |
+| `set nowb`       | Disable write backup files.                 |
+
+### Indentation Options
+| Option                         | Description                                                                             |
+|--------------------------------|-----------------------------------------------------------------------------------------|
+| `set autoindent`               | New lines inherit the indentation of previous lines.                                    |
+| `filetype plugin indent on`    | Enable smart auto-indentation based on file type (replaces the older `smartindent` option). |
+| `set tabstop=4`                | Display existing tab characters as 4 spaces wide.                                       |
+| `set shiftwidth=2`             | Use 2 spaces width for indentation with commands like `>` or `<`.                       |
+| `set expandtab`                | Convert tabs to spaces (inserts 4 spaces when pressing the Tab key).                    |
+| `set nowrap`                   | Prevent lines from wrapping.                                                           |
+
+### Search Options
+| Option            | Description                                                                                     |
+|-------------------|-------------------------------------------------------------------------------------------------|
+| `set incsearch`   | Find the next match incrementally as you type the search query.                                 |
+| `set hlsearch`    | Highlight all matches of the search query.                                                     |
+| `set ignorecase`  | Ignore case when searching.                                                                     |
+| `set smartcase`   | Perform case-sensitive search if the query contains uppercase letters; otherwise, ignore case.  |
+
+### Text rendering options
+| Option                 | Description                                                                                           |
+|------------------------|-------------------------------------------------------------------------------------------------------|
+| `set encoding=utf-8`   | Use an encoding that supports Unicode.                                                               |
+| `set linebreak`        | Wrap lines at convenient points, avoiding breaks in the middle of words.                             |
+| `set scrolloff=3`      | Keep 3 screen lines above and below the cursor when scrolling.                                        |
+| `set sidescrolloff=5`  | Keep 5 screen columns to the left and right of the cursor when scrolling horizontally.                |
+| `syntax enable`        | Enable syntax highlighting.                                                                          |
+
+### Miscellaneous options
+| Option               | Description                                                                                   |
+|----------------------|-----------------------------------------------------------------------------------------------|
+| `set confirm`        | Display a confirmation dialog when closing an unsaved file.                                   |
+| `set nomodeline`     | Ignore file’s mode lines; use vimrc configurations instead.                                    |
+| `set nrformats-=octal`| Interpret numbers as decimal, not octal, when incrementing.                                    |
+| `set shell` | The shell used to execute commands|
+| `set spell` | Enable spellchecking |
+
+### Status Line
+* Bar at the bottom of the Vim window. 
+* Shown only if you have more than one buffer open. 
+* Gives info about the status of current buffer, provides information like, file path, permissions, line numbers, and a percentage number. 
+* This can be done by `:set laststatus=2 "show status line`
+  * `"` <- denotes comment
+* To disable status line `:set laststauts=0`
+* `set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)`
+  * Outputs: `~/Documents/List.py (unix/PYTHON) (line 1/50, col1)`
+* The above output can hard to read: 
+  ```
+  set statusline=%t       "tail of the filename
+  set statusline+=%{&ff}  "file format
+  set statusline+=%h      "help file flag
+  set statusline+=%m      "modified flag, shows a "[+]" if modified
+  set statusline+=%r      "read only flag
+  set statusline+=%y      "filetype
+  set statusline+=%c,     "cursor column
+  set statusline+=%l/%L   "cursor line/total lines
+  set statusline+=\ %P    "percent through file
+  ```
+* To get more information use `:help statusline`
+* Shortcut `g` + `Ctrl-g` give information about number of lines, words, character of current buffer. 
+
+### Swap and backup files 
+* When you edit files, Vim create a file `.<filename>.swp in the same directory. These are swap files. 
+* Swap files store changes made to buffer. In case if vim crashes, swap helps in recovery.
+* Swap files also function as a lock mechanism, if you open a file that is already in some other buffer, you'll be warned. Very useful especially when there are multiple users.
+* **Not recommended!** To disable swap file add `set noswapfile` to `.vimrc`.
+* Instead of disabling swap files you can organize all of them to be stored in a separate directory. 
+  * For eg. `set directory=$HOME/.vim/swp//`
+  * The `//` at tend tells Vim to use absolute path to the file to create swap file. To ensure that we always have unique swap files. 
+* Similar to Swap files, we have backup files. To find out more use `:help`.
+  * We can create common directory for all backup files, `set backupdir=~/.vim/.backup//` to `.vimrc`.
+
+### Project specific .vimrc
+* You may work with many languages and frameworks across multiple projects.
+* To have custom `.vimrc` for particular project, add `set exrc` to `.vimrc`.
+* Now, you can just create `.vimrc` file at the root of project folder. 
+
+## Tips
+* Don't spend a lot of time tweaking your Vim configuration at initial stages. 
+* Once you start using Vim regularly, you'll get ideas on what you'd like to improve and change, during which you can revist this chapter and customize.
+
+## Starter Configuration
+```
+set nocompatible    " Use Vim settings, rather than Vi settings
+set softtabstop=4   " Indent by 2 spaces when hitting tab
+set shiftwidth=4    " Indent by 4 spaces when auto-indenting
+set tabstop=4       " Show existing tab with 4 spaces width
+syntax on           " Enable syntax highlighting
+filetype indent on  " Enable indenting for files
+set autoindent      " Enable auto indenting
+set number          " Enable line numbers
+colorscheme sorbet	" Set nice looking colorscheme
+set mouse=a			    " Enable mouse support for scrolling and resizing
+set title			      " Set the window title to current file modified
+set visualbell		  " Flash screen on errors
+set noerrorbells	  " Disable beep on errors
+set cursorline		  " Highlight the line where cursor is
+set cursorcolumn	  " Highlight the line where cursor is
+set nobackup        " Disable backup files
+set scrolloff=25	  " Keep 25 lines above and below cursor when scrolling
+set sidescrolloff=5 " Keep 5 cols left and right of cursor when scrolling horizontally
+set nowrap			    " Prevent line from wrapping
+set laststatus=2    " Show status line
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set wildmenu        " Display command line's tab complete options as a menu.
+set spell			      " Enable English spell checking
+```
